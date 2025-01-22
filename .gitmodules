@@ -7,3 +7,6 @@
 [submodule "backend/central-configuration"]
 	path = backend/central-configuration
 	url = git@github.com:Brayan-22/artesanias-central-configuration.git
+[submodule "backend/config-server"]
+	path = backend/config-server
+	url = git@github.com:Brayan-22/artesanias-config-server.git
