@@ -1,6 +1,6 @@
 [submodule "frontend"]
 	path = frontend
-	url = git@github.com:Brayan-22/artesanias-don-helio-front.git
+	url = git@github.com:Brayan-22/artesanias-bogota-front.git
 [submodule "backend/discovery-server"]
 	path = backend/discovery-server
 	url = git@github.com:Brayan-22/artesanias-don-helio-discovery-server.git
