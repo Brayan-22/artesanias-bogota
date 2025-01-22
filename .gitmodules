@@ -3,4 +3,4 @@
 	url = git@github.com:Brayan-22/artesanias-bogota-front.git
 [submodule "backend/discovery-server"]
 	path = backend/discovery-server
-	url = git@github.com:Brayan-22/artesanias-don-helio-discovery-server.git
+	url = git@github.com:Brayan-22/artesanias-discovery-config-server.git
