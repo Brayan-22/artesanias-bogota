@@ -4,3 +4,6 @@
 [submodule "backend/discovery-server"]
 	path = backend/discovery-server
 	url = git@github.com:Brayan-22/artesanias-discovery-config-server.git
+[submodule "backend/central-configuration"]
+	path = backend/central-configuration
+	url = git@github.com:Brayan-22/artesanias-central-configuration.git
