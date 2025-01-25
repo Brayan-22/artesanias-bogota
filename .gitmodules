@@ -10,3 +10,6 @@
 [submodule "backend/config-server"]
 	path = backend/config-server
 	url = git@github.com:Brayan-22/artesanias-config-server.git
+[submodule "backend/gateway-service"]
+	path = backend/gateway-service
+	url = git@github.com:Brayan-22/artesanias-gateway.git
