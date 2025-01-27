@@ -13,3 +13,6 @@
 [submodule "backend/gateway-service"]
 	path = backend/gateway-service
 	url = git@github.com:Brayan-22/artesanias-gateway.git
+[submodule "backend/auth-service"]
+	path = backend/auth-service
+	url = git@github.com:Brayan-22/artesanias-auth.git
