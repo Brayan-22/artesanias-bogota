@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     31/01/2025 12:48:20 a. m.                    */
+/* Created on:     2/02/2025 10:34:57 a. m.                     */
 /*==============================================================*/
 
 
@@ -103,9 +103,8 @@ drop table status;
 /*==============================================================*/
 create table Almacen (
    id_almacen           VARCHAR(36)          not null,
-   id_ubicacion         INT4                 null,
    id_tienda            VARCHAR(36)          null,
-   Ubi_id_ubicacion     INT4                 not null,
+   id_ubicacion         INT4                 not null,
    is_central           BOOL                 not null,
    constraint PK_ALMACEN primary key (id_almacen)
 );
@@ -121,7 +120,6 @@ id_almacen
 /* Index: tienda_almacen_FK                                     */
 /*==============================================================*/
 create  index tienda_almacen_FK on Almacen (
-id_ubicacion,
 id_tienda
 );
 
@@ -129,7 +127,7 @@ id_tienda
 /* Index: ubicacion_almacen_FK                                  */
 /*==============================================================*/
 create  index ubicacion_almacen_FK on Almacen (
-Ubi_id_ubicacion
+id_ubicacion
 );
 
 /*==============================================================*/
@@ -139,14 +137,13 @@ create table Tienda (
    id_ubicacion         INT4                 not null,
    id_tienda            VARCHAR(36)          not null,
    nombre_tienda        VARCHAR(64)          not null,
-   constraint PK_TIENDA primary key (id_ubicacion, id_tienda)
+   constraint PK_TIENDA primary key (id_tienda)
 );
 
 /*==============================================================*/
 /* Index: Tienda_PK                                             */
 /*==============================================================*/
 create unique index Tienda_PK on Tienda (
-id_ubicacion,
 id_tienda
 );
 
@@ -216,6 +213,9 @@ create table cliente (
    id_clientePK         VARCHAR(36)          not null,
    id_usuarioFK         VARCHAR(36)          not null,
    id_ubicacionFK       INT4                 not null,
+   nombres              VARCHAR(32)          not null,
+   apellidos            VARCHAR(32)          not null,
+   direccion            VARCHAR(32)          not null,
    constraint PK_CLIENTE primary key (id_clientePK)
 );
 
@@ -247,7 +247,6 @@ create table empleado (
    id_usuario           VARCHAR(36)          not null,
    id_empleado          VARCHAR(32)          not null,
    id_role              INT4                 not null,
-   id_ubicacion         INT4                 not null,
    id_tienda            VARCHAR(36)          not null,
    constraint PK_EMPLEADO primary key (id_usuario, id_empleado)
 );
@@ -271,7 +270,6 @@ id_role
 /* Index: tienda_empleado_FK                                    */
 /*==============================================================*/
 create  index tienda_empleado_FK on empleado (
-id_ubicacion,
 id_tienda
 );
 
@@ -496,12 +494,12 @@ id_status
 );
 
 alter table Almacen
-   add constraint FK_ALMACEN_TIENDA_AL_TIENDA foreign key (id_ubicacion, id_tienda)
-      references Tienda (id_ubicacion, id_tienda)
+   add constraint FK_ALMACEN_TIENDA_AL_TIENDA foreign key (id_tienda)
+      references Tienda (id_tienda)
       on delete restrict on update restrict;
 
 alter table Almacen
-   add constraint FK_ALMACEN_UBICACION_UBICACIO foreign key (Ubi_id_ubicacion)
+   add constraint FK_ALMACEN_UBICACION_UBICACIO foreign key (id_ubicacion)
       references Ubicacion (id_ubicacion)
       on delete restrict on update restrict;
 
@@ -526,8 +524,8 @@ alter table empleado
       on delete restrict on update restrict;
 
 alter table empleado
-   add constraint FK_EMPLEADO_TIENDA_EM_TIENDA foreign key (id_ubicacion, id_tienda)
-      references Tienda (id_ubicacion, id_tienda)
+   add constraint FK_EMPLEADO_TIENDA_EM_TIENDA foreign key (id_tienda)
+      references Tienda (id_tienda)
       on delete restrict on update restrict;
 
 alter table empleado
