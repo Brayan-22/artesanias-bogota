@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     2/02/2025 10:34:57 a. m.                     */
+/* Created on:     2/02/2025 3:26:06 p. m.                      */
 /*==============================================================*/
 
 
@@ -47,6 +47,12 @@ drop index rol_empleado_FK;
 drop index empleado_PK;
 
 drop table empleado;
+
+drop index venta_historicoventas_FK;
+
+drop index historico_ventas_PK;
+
+drop table historico_ventas;
 
 drop index almacen_producto_FK;
 
@@ -278,6 +284,38 @@ id_tienda
 /*==============================================================*/
 create  index usuario_empleado_FK on empleado (
 id_usuario
+);
+
+/*==============================================================*/
+/* Table: historico_ventas                                      */
+/*==============================================================*/
+create table historico_ventas (
+   id_historico         INT8                 not null,
+   id_productoPK        VARCHAR(36)          not null,
+   id_clientePK         VARCHAR(36)          not null,
+   id_ordenPK           VARCHAR(36)          not null,
+   precio_unitario      NUMERIC(10,2)        not null,
+   descuento            NUMERIC(5,2)         not null,
+   constraint PK_HISTORICO_VENTAS primary key (id_historico, id_productoPK, id_clientePK, id_ordenPK)
+);
+
+/*==============================================================*/
+/* Index: historico_ventas_PK                                   */
+/*==============================================================*/
+create unique index historico_ventas_PK on historico_ventas (
+id_historico,
+id_productoPK,
+id_clientePK,
+id_ordenPK
+);
+
+/*==============================================================*/
+/* Index: venta_historicoventas_FK                              */
+/*==============================================================*/
+create  index venta_historicoventas_FK on historico_ventas (
+id_productoPK,
+id_clientePK,
+id_ordenPK
 );
 
 /*==============================================================*/
@@ -531,6 +569,11 @@ alter table empleado
 alter table empleado
    add constraint FK_EMPLEADO_USUARIO_E_USUARIO foreign key (id_usuario)
       references Usuario (id_usuario)
+      on delete restrict on update restrict;
+
+alter table historico_ventas
+   add constraint FK_HISTORIC_VENTA_HIS_ORDEN_PR foreign key (id_productoPK, id_clientePK, id_ordenPK)
+      references orden_producto (id_productoPK, id_clientePK, id_ordenPK)
       on delete restrict on update restrict;
 
 alter table inventario
