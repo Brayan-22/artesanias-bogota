@@ -1,0 +1,23 @@
+services:
+  artesanias_database:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: artesanias
+      POSTGRES_DB: artesanias
+      POSTGRES_USER: postgres
+    hostname: artesanias-database
+    ports:
+      - "5432:5432"
+    volumes:
+      - "artesanias-data:/var/lib/postgresql/data"
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+volumes:
+  artesanias-data:
+networks:
+  backend:
+    external: true

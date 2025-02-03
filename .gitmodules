@@ -19,3 +19,6 @@
 [submodule "backend/user-service"]
 	path = backend/user-service
 	url = git@github.com:Brayan-22/artesanias-user-service.git
+[submodule "backend/commerce-service"]
+	path = backend/commerce-service
+	url = git@github.com:Brayan-22/commerce-service.git

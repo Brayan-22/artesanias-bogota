@@ -1,0 +1,21 @@
+services:
+  db-artesanias:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: artesanias
+      POSTGRES_DB: artesanias
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - db-artesanias:/var/lib/postgresql/data
+    networks:
+      - backend
+networks:
+  backend:
+    external: true
+volumes:
+  db-artesanias:
+    external: true
