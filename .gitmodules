@@ -22,3 +22,6 @@
 [submodule "backend/commerce-service"]
 	path = backend/commerce-service
 	url = git@github.com:Brayan-22/commerce-service.git
+[submodule "backend/inventory-service"]
+	path = backend/inventory-service
+	url = git@github.com:Brayan-22/artesanias-inventario.git
