@@ -181,7 +181,6 @@ id_ubicacion
 /*==============================================================*/
 create table Usuario (
    id_usuario           VARCHAR(36)          not null,
-   username             VARCHAR(32)          not null,
    password             VARCHAR(60)          not null,
    role                 VARCHAR(32)          not null,
    mail                 VARCHAR(32)          not null,
