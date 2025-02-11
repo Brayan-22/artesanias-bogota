@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: payment-service
+  config:
+    import: optional:configserver:http://localhost:9196
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    database: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/artesanias
+    username: artesanias
+    password: artesanias
+    driver-class-name: org.postgresql.Driver
+server:
+  port: ${PORT:9099}
+  servlet:
+    context-path: /payment
+springdoc:
+  open-api:
+    service:
+      title: payment service doc
+      version: 1.0.0
+      url: http://localhost:8080/payment
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost

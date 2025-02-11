@@ -1,0 +1,21 @@
+services:
+  central-db:
+    image: postgres:latest
+    container_name: artesanias-db
+    environment:
+      POSTGRES_USER: artesanias
+      POSTGRES_PASSWORD: artesanias
+      POSTGRES_DB: artesanias
+    ports:
+      - "5432:5432"
+    volumes:
+      - artesanias-data:/var/lib/postgresql/data
+      - ./init-scripts/artesanias/crebas_artesanias.sql:/docker-entrypoint-initdb.d/crebas_artesanias.sql
+    networks:
+      - artesanias-bogota
+    hostname: artesanias-db
+networks:
+  artesanias-bogota:
+    driver: bridge
+volumes:
+  artesanias-data:
