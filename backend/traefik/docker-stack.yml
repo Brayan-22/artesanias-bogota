@@ -1,0 +1,44 @@
+services:
+  traefik:
+    image: traefik:v2.10.3
+    user: "0:0"
+    networks:
+      - reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - "CF_API_EMAIL=${CLOUDFLARE_EMAIL}"
+      - "CF_DNS_API_TOKEN=${CLOUDFLARE_API_TOKEN}"
+    volumes:
+      - ./:/etc/traefik
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/ubuntu/docker/traefik/traefik.yml:/traefik.yml:ro
+      - /home/ubuntu/docker/traefik/acme.json:/acme.json
+      - /home/ubuntu/docker/traefik/logs:/var/log/traefik
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=reverse-proxy"
+        - "traefik.http.routers.traefik.entrypoints=websecure"
+        - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
+        - "traefik.http.routers.traefik.service=api@internal"
+        - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+        - "traefik.http.routers.traefik.tls=true"
+        - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
+        - "traefik.http.routers.traefik.middlewares=auth"
+        #Comando para crear usuarios: echo $(htpasswd -nb user password) | sed -e s/\\$/\\$\\$/g
+        - "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$NUCd1BYv$$mb6817ZdU0FTpTEhaeMoU0"
+        - "traefik.http.routers.traefik.tls.domains[0].main=${DOMAIN}"
+        - "traefik.http.routers.traefik.tls.domains[0].sans=*.${DOMAIN}"
+networks:
+  reverse-proxy:
+    external: true
