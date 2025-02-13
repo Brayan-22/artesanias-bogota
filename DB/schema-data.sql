@@ -659,13 +659,13 @@ values (gen_random_uuid(),1,'Jarrón de cerámica', 99.99, 'Jarrón de cerámica
 /* Tiendas */
 INSERT INTO Tienda (id_ubicacion, id_tienda, nombre_tienda) 
 VALUES 
-(1, gen_random_uuid(), 'Artesanías del Sol'),
-(2, gen_random_uuid(), 'Manos Creativas');
+(1, 1001, 'Artesanías del Sol'),
+(2, 1002, 'Manos Creativas');
 /*Almacenes  */
 INSERT INTO Almacen (id_almacen, id_tienda, id_ubicacion, is_central) 
 VALUES 
-(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Artesanías del Sol'), 1, TRUE),
-(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Artesanías del Sol'), 1, FALSE),
-(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Manos Creativas'), 2, TRUE),
-(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Manos Creativas'), 2, FALSE);
+(gen_random_uuid(), 1001, 1, TRUE),
+(gen_random_uuid(), 1001, 1, FALSE),
+(gen_random_uuid(), 1002, 2, TRUE),
+(gen_random_uuid(), 1002, 2, FALSE);
 
