@@ -664,7 +664,8 @@ VALUES
 /*Almacenes  */
 INSERT INTO Almacen (id_almacen, id_tienda, id_ubicacion, is_central) 
 VALUES 
-(gen_random_uuid(), 'a1b2c3d4-e5f6-7890-abcd-1234567890ef', 1, TRUE),
-(gen_random_uuid(), 'a1b2c3d4-e5f6-7890-abcd-1234567890ef', 1, FALSE),
-(gen_random_uuid(), 'b2c3d4e5-f678-9012-abcd-0987654321fe', 2, TRUE),
-(gen_random_uuid(), 'b2c3d4e5-f678-9012-abcd-0987654321fe', 2, FALSE);
+(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Artesanías del Sol'), 1, TRUE),
+(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Artesanías del Sol'), 1, FALSE),
+(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Manos Creativas'), 2, TRUE),
+(gen_random_uuid(), (SELECT id_tienda FROM Tienda WHERE nombre_tienda = 'Manos Creativas'), 2, FALSE);
+
