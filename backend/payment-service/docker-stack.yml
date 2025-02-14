@@ -3,9 +3,9 @@ services:
     image: brayan22/artesanias-payment-service:latest
     environment:
       - CONFIG_SERVER_URL=http://artesanias-config-server:9196
-      - JDBC_DATABASE_URL=jdbc:postgresql://${RDS_URL}:5432/postgres
-      - JDBC_DATABASE_USERNAME=${DB_USERNAME}
-      - JDBC_DATABASE_PASSWORD=${DB_PASSWORD}
+      - RDS_URL=jdbc:postgresql://${RDS_URL}:5432/postgres
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
       - PORT=9099
       - HOST=https://restauranteapirest.brayandev.info
       - EUREKA_URI=http://artesanias-discovery-server:8761/eureka/
