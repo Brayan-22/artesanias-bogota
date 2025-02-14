@@ -656,3 +656,16 @@ values (gen_random_uuid(),1,'Jarrón de cerámica', 99.99, 'Jarrón de cerámica
        (gen_random_uuid(),6,'Cesta de mimbre', 29.99, 'Cesta de mimbre hecha a mano', 'url16'),
        (gen_random_uuid(),6,'Canasto de mimbre', 19.99, 'Canasto de mimbre hecho a mano', 'url17'),
        (gen_random_uuid(),6,'Cesto de mimbre', 14.99, 'Cesto de mimbre hecho a mano', 'url18');
+/* Tiendas */
+INSERT INTO Tienda (id_ubicacion, id_tienda, nombre_tienda) 
+VALUES 
+(1, 1001, 'Artesanías del Sol'),
+(2, 1002, 'Manos Creativas');
+/*Almacenes  */
+INSERT INTO Almacen (id_almacen, id_tienda, id_ubicacion, is_central) 
+VALUES 
+(gen_random_uuid(), 1001, 1, TRUE),
+(gen_random_uuid(), 1001, 1, FALSE),
+(gen_random_uuid(), 1002, 2, TRUE),
+(gen_random_uuid(), 1002, 2, FALSE);
+
