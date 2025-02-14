@@ -2,7 +2,7 @@ spring:
   application:
     name: payment-service
   config:
-    import: optional:configserver:http://localhost:9196
+    import: optional:configserver:${CONFIG_SERVER_URI:http://localhost:9196}
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -13,29 +13,23 @@ spring:
     show-sql: true
     database: postgresql
   datasource:
-    url: jdbc:postgresql://localhost:5432/artesanias
-    username: artesanias
-    password: artesanias
+    url: jdbc:postgresql://${RDS_URL}:5432/artesanias
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 server:
   port: ${PORT:9099}
   servlet:
     context-path: /payment
-springdoc:
-  open-api:
-    service:
-      title: payment service doc
-      version: 1.0.0
-      url: http://localhost:8080/payment
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   instance:
-    hostname: localhost
+    hostname: ${PAYMENT_HOST:localhost}
+
+app:
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:sk_test_51Qqn3kRtJ4BL2ozwGTyXYtumsWuJg08VCwRvG4DNbuIFICj3FAoeSqLmye4r5e3oZPmSDJD9JDdIBmolfyqH40cT00DsYzBcDA}

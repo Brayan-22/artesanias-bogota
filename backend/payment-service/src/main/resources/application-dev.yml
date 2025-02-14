@@ -21,16 +21,6 @@ server:
   port: ${PORT:9099}
   servlet:
     context-path: /payment
-springdoc:
-  open-api:
-    service:
-      title: payment service doc
-      version: 1.0.0
-      url: http://localhost:8080/payment
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
 eureka:
   client:
     fetch-registry: true
@@ -39,3 +29,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+app:
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:sk_test_51Qqn3kRtJ4BL2ozwGTyXYtumsWuJg08VCwRvG4DNbuIFICj3FAoeSqLmye4r5e3oZPmSDJD9JDdIBmolfyqH40cT00DsYzBcDA}

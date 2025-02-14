@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RefreshScope
 public class PaymentService {
-    @Value("${stripe.secret.key}")
+    @Value("${app.stripe.secret-key}")
     private String stripeSecretKey;
 
     private Stripe stripe;

@@ -5,13 +5,13 @@ api:
 entryPoints:
   web:
     address: ":80"
-    http:
-      redirections:
-        entrypoint:
-          to: websecure
-          scheme: https
-  websecure:
-    address: ":443"
+  #   http:
+  #     redirections:
+  #       entrypoint:
+  #         to: websecure
+  #         scheme: https
+  # websecure:
+    # address: ":443"
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
@@ -19,16 +19,16 @@ providers:
     network: reverse-proxy
     watch: true
     swarmMode: true
-certificatesResolvers:
-  cloudflare:
-    acme:
-      email: alejandroriveros100@gmail.com
-      storage: acme.json
-      dnsChallenge:
-        provider: cloudflare
-        resolvers:
-          - "1.1.1.1:53"
-          - "1.0.0.1:53"
+# certificatesResolvers:
+#   cloudflare:
+#     acme:
+#       email: alejandroriveros100@gmail.com
+#       storage: acme.json
+#       dnsChallenge:
+#         provider: cloudflare
+#         resolvers:
+#           - "1.1.1.1:53"
+#           - "1.0.0.1:53"
 
 log:
   level: DEBUG
