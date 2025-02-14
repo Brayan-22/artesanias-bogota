@@ -3,20 +3,6 @@ spring:
     name: payment-service
   config:
     import: optional:configserver:http://localhost:9196
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
-    database: postgresql
-  datasource:
-    url: jdbc:postgresql://localhost:5432/artesanias
-    username: artesanias
-    password: artesanias
-    driver-class-name: org.postgresql.Driver
 server:
   port: ${PORT:9099}
   servlet:

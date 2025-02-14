@@ -3,24 +3,9 @@ spring:
     name: payment-service
   config:
     import: optional:configserver:${CONFIG_SERVER_URI:http://localhost:9196}
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
-    database: postgresql
-  datasource:
-    url: jdbc:postgresql://${RDS_URL}:5432/artesanias
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+
 server:
   port: ${PORT:9099}
-  servlet:
-    context-path: /payment
 eureka:
   client:
     fetch-registry: true

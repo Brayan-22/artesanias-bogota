@@ -6,6 +6,7 @@ import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentUpdateParams;
 import dev.alejandro.paymentservice.dto.PaymentIntentRequestDto;
+import dev.alejandro.paymentservice.dto.ProductosRequestDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -28,12 +30,19 @@ public class PaymentService {
     public void pay() {
         Stripe.apiKey = stripeSecretKey;
     }
-
+    private Long calculateTotalAmount(List<ProductosRequestDto> productos) {
+        return productos.stream()
+                .mapToLong(p -> p.getPrecioIndividual() * p.getCantidadProducto())
+                .sum();
+    }
 
     public Map<String,String> paymentIntent(PaymentIntentRequestDto requestDto)throws RuntimeException {
+        if (calculateTotalAmount(requestDto.getProductos()) != requestDto.getTotalAmount()){
+            throw new RuntimeException("El monto no coincide con el precio de los productos");
+        }
         try{
             PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
-                    .setAmount(1000L)
+                    .setAmount(requestDto.getTotalAmount())
                     .setCurrency(requestDto.getCurrency())
                     .build();
             PaymentIntent paymentIntent = PaymentIntent.create(params);
@@ -47,9 +56,12 @@ public class PaymentService {
     }
 
     public Map<String, String> updatePaymentIntent(String paymentIntentId, PaymentIntentRequestDto requestDto)throws RuntimeException {
+        if (calculateTotalAmount(requestDto.getProductos()) != requestDto.getTotalAmount()){
+            throw new RuntimeException("El monto no coincide con el precio de los productos");
+        }
         try{
             PaymentIntentUpdateParams params = PaymentIntentUpdateParams.builder()
-                    .setAmount(1000L)
+                    .setAmount(requestDto.getTotalAmount())
                     .setCurrency(requestDto.getCurrency())
                     .build();
             PaymentIntent paymentIntent = PaymentIntent.retrieve(paymentIntentId);
